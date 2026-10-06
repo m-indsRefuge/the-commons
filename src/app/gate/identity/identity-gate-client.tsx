@@ -5,12 +5,7 @@ import { useState } from "react";
 import { authClient } from "@/infrastructure/auth/auth-client";
 
 type JsonValue =
-  | null
-  | boolean
-  | number
-  | string
-  | JsonValue[]
-  | { [key: string]: JsonValue };
+  null | boolean | number | string | JsonValue[] | { [key: string]: JsonValue };
 
 async function readJson(response: Response): Promise<JsonValue> {
   return (await response.json()) as JsonValue;
