@@ -22,10 +22,9 @@ await client.connect();
 try {
   await client.query("BEGIN");
 
-  await client.query(
-    "SELECT pg_advisory_xact_lock(hashtext($1))",
-    ["the-commons:first-admin-bootstrap"],
-  );
+  await client.query("SELECT pg_advisory_xact_lock(hashtext($1))", [
+    "the-commons:first-admin-bootstrap",
+  ]);
 
   const membershipCount = await client.query(
     'SELECT count(*)::int AS "count" FROM "commons_membership"',
