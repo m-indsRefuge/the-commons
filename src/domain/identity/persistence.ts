@@ -32,9 +32,7 @@ export interface IdentityTransaction {
   createInvite(input: CreateInviteRecord): Promise<Invite>;
   createMembership(input: CreateMembershipRecord): Promise<Membership>;
   consumeInvite(input: ConsumeInviteRecord): Promise<boolean>;
-  appendAuditEvent(
-    event: AuditEventInput & { createdAt: Date },
-  ): Promise<void>;
+  appendAuditEvent(event: AuditEventInput & { createdAt: Date }): Promise<void>;
 }
 
 export interface IdentityPersistence {
