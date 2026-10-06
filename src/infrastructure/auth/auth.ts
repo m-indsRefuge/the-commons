@@ -1,18 +1,14 @@
 import { drizzleAdapter } from "@better-auth/drizzle-adapter";
 import { betterAuth } from "better-auth";
 
+import { readServerEnvironment } from "@/infrastructure/config/env";
 import { getDatabase } from "@/infrastructure/database/client";
 import * as authSchema from "@/infrastructure/database/schema/auth";
-import { readServerEnvironment } from "@/infrastructure/config/env";
 
-let authInstance: ReturnType<typeof betterAuth> | undefined;
-
-export function getAuth(): ReturnType<typeof betterAuth> {
-  if (authInstance) return authInstance;
-
+function createAuth() {
   const env = readServerEnvironment();
 
-  authInstance = betterAuth({
+  return betterAuth({
     baseURL: env.BETTER_AUTH_URL,
     secret: env.BETTER_AUTH_SECRET,
     database: drizzleAdapter(getDatabase(), {
@@ -28,6 +24,16 @@ export function getAuth(): ReturnType<typeof betterAuth> {
       },
     },
   });
+}
+
+type AuthInstance = ReturnType<typeof createAuth>;
+
+let authInstance: AuthInstance | undefined;
+
+export function getAuth(): AuthInstance {
+  if (!authInstance) {
+    authInstance = createAuth();
+  }
 
   return authInstance;
 }
