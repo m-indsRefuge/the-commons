@@ -9,9 +9,7 @@ import type { Invite, Membership } from "@/domain/identity/types";
 import { getDatabase, type CommonsDatabase } from "./client";
 import { auditEvents, invites, memberships } from "./schema";
 
-function mapMembership(
-  row: typeof memberships.$inferSelect,
-): Membership {
+function mapMembership(row: typeof memberships.$inferSelect): Membership {
   return {
     id: row.id,
     authUserId: row.authUserId,
