@@ -18,7 +18,8 @@
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
     "db:check": "drizzle-kit check",
-    "check": "npm run lint && npm run typecheck && npm run test && npm run build"
+    "check": "npm run lint && npm run typecheck && npm run test && npm run build",
+    "identity:bootstrap-admin": "node scripts/bootstrap-first-admin.mjs"
   },
   "dependencies": {
     "@better-auth/drizzle-adapter": "^1.7.7",
