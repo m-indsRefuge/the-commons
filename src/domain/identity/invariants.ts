@@ -1,14 +1,10 @@
 import type { Invite, Membership } from "./types";
 
 export type InviteRejectionReason =
-  | "REVOKED"
-  | "CONSUMED"
-  | "EXPIRED"
-  | "EMAIL_MISMATCH";
+  "REVOKED" | "CONSUMED" | "EXPIRED" | "EMAIL_MISMATCH";
 
 export type InviteCheck =
-  | { ok: true }
-  | { ok: false; reason: InviteRejectionReason };
+  { ok: true } | { ok: false; reason: InviteRejectionReason };
 
 export function normalizeEmail(value: string): string {
   return value.trim().toLowerCase();

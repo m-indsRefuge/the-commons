@@ -12,7 +12,9 @@ export type AuthorizationDecision =
         | "NOT_OWNER";
     };
 
-export function requireActiveMember(actor: RequestActor): AuthorizationDecision {
+export function requireActiveMember(
+  actor: RequestActor,
+): AuthorizationDecision {
   if (!actor.membershipId) return { allowed: false, reason: "UNAUTHENTICATED" };
   if (actor.suspendedAt) return { allowed: false, reason: "SUSPENDED" };
   if (actor.membershipStatus !== "ACTIVE") {

@@ -18,9 +18,9 @@ describe("identity invariants", () => {
   });
 
   it("accepts a valid invite", () => {
-    expect(
-      checkInvite(baseInvite(), new Date("2029-01-01T00:00:00Z")),
-    ).toEqual({ ok: true });
+    expect(checkInvite(baseInvite(), new Date("2029-01-01T00:00:00Z"))).toEqual(
+      { ok: true },
+    );
   });
 
   it.each([
@@ -29,10 +29,7 @@ describe("identity invariants", () => {
     ["EXPIRED", { expiresAt: new Date("2028-01-01T00:00:00Z") }],
   ] as const)("rejects %s invites", (reason, overrides) => {
     expect(
-      checkInvite(
-        baseInvite(overrides),
-        new Date("2029-01-01T00:00:00Z"),
-      ),
+      checkInvite(baseInvite(overrides), new Date("2029-01-01T00:00:00Z")),
     ).toEqual({ ok: false, reason });
   });
 

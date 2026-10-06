@@ -1,8 +1,5 @@
 export type MembershipStatus =
-  | "INVITED"
-  | "ACTIVE"
-  | "SUSPENDED"
-  | "DEACTIVATED";
+  "INVITED" | "ACTIVE" | "SUSPENDED" | "DEACTIVATED";
 
 export type CommonsRole = "MEMBER" | "MODERATOR" | "ADMIN";
 
