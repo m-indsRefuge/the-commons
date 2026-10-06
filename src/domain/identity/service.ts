@@ -55,9 +55,7 @@ export class IdentityService {
 
     const token = generateInviteToken();
     const tokenHash = hashInviteToken(token, this.inviteTokenSecret);
-    const emailNormalized = input.email
-      ? normalizeEmail(input.email)
-      : null;
+    const emailNormalized = input.email ? normalizeEmail(input.email) : null;
 
     const invite = await this.persistence.transaction(async (transaction) => {
       const created = await transaction.createInvite({
@@ -88,10 +86,7 @@ export class IdentityService {
 
   async redeemInvite(input: RedeemInviteInput): Promise<Membership> {
     const now = input.now ?? new Date();
-    const tokenHash = hashInviteToken(
-      input.token,
-      this.inviteTokenSecret,
-    );
+    const tokenHash = hashInviteToken(input.token, this.inviteTokenSecret);
 
     return this.persistence.transaction(async (transaction) => {
       const invite = await transaction.findInviteByTokenHash(tokenHash);
