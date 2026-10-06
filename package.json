@@ -14,6 +14,9 @@
     "test:e2e": "playwright test",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "drizzle-kit migrate",
+    "db:check": "drizzle-kit check",
     "check": "npm run lint && npm run typecheck && npm run test && npm run build"
   },
   "dependencies": {

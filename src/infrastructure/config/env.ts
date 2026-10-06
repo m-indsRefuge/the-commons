@@ -4,6 +4,7 @@ export interface ServerEnvironment {
   BETTER_AUTH_URL: string;
   GITHUB_CLIENT_ID: string;
   GITHUB_CLIENT_SECRET: string;
+  INVITE_TOKEN_SECRET: string;
 }
 
 const REQUIRED_KEYS = [
@@ -12,6 +13,7 @@ const REQUIRED_KEYS = [
   "BETTER_AUTH_URL",
   "GITHUB_CLIENT_ID",
   "GITHUB_CLIENT_SECRET",
+  "INVITE_TOKEN_SECRET",
 ] as const;
 
 export function readServerEnvironment(
