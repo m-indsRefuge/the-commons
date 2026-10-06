@@ -9,7 +9,9 @@ export type AuthorizationDecision =
         | "MEMBERSHIP_INACTIVE"
         | "SUSPENDED"
         | "ROLE_REQUIRED"
-        | "NOT_OWNER";
+        | "NOT_OWNER"
+        | "NOT_OPERATOR"
+        | "NOT_PROJECT_MANAGER";
     };
 
 export function requireActiveMember(
