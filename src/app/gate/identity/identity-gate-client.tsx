@@ -111,6 +111,9 @@ export function IdentityGateClient() {
             <p>
               Signed in as <strong>{session.user.email}</strong>
             </p>
+            <p className="text-sm text-zinc-600">
+              Better Auth user ID: <code>{session.user.id}</code>
+            </p>
             <div className="flex gap-3">
               <button
                 className="rounded border px-3 py-2"
