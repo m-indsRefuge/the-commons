@@ -7,6 +7,7 @@ export default defineConfig({
   schema: [
     "./src/infrastructure/database/schema/auth.ts",
     "./src/infrastructure/database/schema/identity.ts",
+    "./src/infrastructure/database/schema/core-domain.ts",
   ],
   out: "./drizzle",
   strict: true,
