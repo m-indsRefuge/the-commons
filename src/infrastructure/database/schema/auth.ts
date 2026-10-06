@@ -93,7 +93,5 @@ export const verification = pgTable(
       .defaultNow()
       .notNull(),
   },
-  (table) => [
-    index("verification_identifier_idx").on(table.identifier),
-  ],
+  (table) => [index("verification_identifier_idx").on(table.identifier)],
 );
