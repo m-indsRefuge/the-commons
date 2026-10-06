@@ -13,6 +13,24 @@ jobs:
   verify:
     runs-on: ubuntu-latest
 
+    services:
+      postgres:
+        image: postgres:17-alpine
+        env:
+          POSTGRES_USER: commons
+          POSTGRES_PASSWORD: commons
+          POSTGRES_DB: commons_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U commons -d commons_test"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+
+    env:
+      DATABASE_URL: postgresql://commons:commons@localhost:5432/commons_test
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -37,6 +55,18 @@ jobs:
 
       - name: Unit tests
         run: npm run test
+
+      - name: Bootstrap script syntax
+        run: node --check scripts/bootstrap-first-admin.mjs
+
+      - name: Check migration metadata
+        run: npm run db:check
+
+      - name: Migrate clean PostgreSQL
+        run: npm run db:migrate
+
+      - name: Persistence integration tests
+        run: npm run test:integration
 
       - name: Production build
         run: npm run build
