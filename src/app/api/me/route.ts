@@ -1,4 +1,7 @@
-import { getAuthenticatedSessionUser, resolveRequestActor } from "@/infrastructure/auth/session-actor";
+import {
+  getAuthenticatedSessionUser,
+  resolveRequestActor,
+} from "@/infrastructure/auth/session-actor";
 
 export async function GET(request: Request): Promise<Response> {
   const sessionUser = await getAuthenticatedSessionUser(request.headers);
