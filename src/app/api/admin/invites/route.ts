@@ -32,9 +32,7 @@ export async function POST(request: Request): Promise<Response> {
   }
 
   const now = new Date();
-  const expiresAt = new Date(
-    now.getTime() + expiresInHours * 60 * 60 * 1000,
-  );
+  const expiresAt = new Date(now.getTime() + expiresInHours * 60 * 60 * 1000);
 
   try {
     const result = await createIdentityService().createInvite(actor, {

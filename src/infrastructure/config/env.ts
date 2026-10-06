@@ -14,9 +14,7 @@ export interface IdentityEnvironment {
 }
 
 export interface ServerEnvironment
-  extends DatabaseEnvironment,
-    AuthEnvironment,
-    IdentityEnvironment {}
+  extends DatabaseEnvironment, AuthEnvironment, IdentityEnvironment {}
 
 function readRequiredEnvironment<K extends string>(
   keys: readonly K[],

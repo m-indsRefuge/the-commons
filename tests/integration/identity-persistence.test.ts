@@ -4,10 +4,7 @@ import { afterAll, beforeEach, describe, expect, it } from "vitest";
 import type { RequestActor } from "@/authorization/actor";
 import { hashInviteToken } from "@/domain/identity/invite-token";
 import { IdentityService } from "@/domain/identity/service";
-import {
-  closeDatabase,
-  getDatabase,
-} from "@/infrastructure/database/client";
+import { closeDatabase, getDatabase } from "@/infrastructure/database/client";
 import { DrizzleIdentityPersistence } from "@/infrastructure/database/identity-persistence";
 import {
   auditEvents,
@@ -18,9 +15,11 @@ import {
 const inviteSecret = "integration-invite-secret";
 
 async function resetIdentityTables(): Promise<void> {
-  await getDatabase().execute(sql.raw(
-    'TRUNCATE TABLE "audit_event", "invite", "commons_membership" CASCADE',
-  ));
+  await getDatabase().execute(
+    sql.raw(
+      'TRUNCATE TABLE "audit_event", "invite", "commons_membership" CASCADE',
+    ),
+  );
 }
 
 afterAll(async () => {
@@ -74,9 +73,7 @@ describe("DrizzleIdentityPersistence", () => {
       hashInviteToken(created.token, inviteSecret),
     );
     expect(persistedInvites[0]?.tokenHash).not.toBe(created.token);
-    expect(persistedInvites[0]?.emailNormalized).toBe(
-      "builder@example.com",
-    );
+    expect(persistedInvites[0]?.emailNormalized).toBe("builder@example.com");
 
     const membership = await service.redeemInvite({
       token: created.token,

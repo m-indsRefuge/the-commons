@@ -1,10 +1,4 @@
-import {
-  boolean,
-  index,
-  pgTable,
-  text,
-  timestamp,
-} from "drizzle-orm/pg-core";
+import { boolean, index, pgTable, text, timestamp } from "drizzle-orm/pg-core";
 
 /**
  * Better Auth 1.7.x core schema.

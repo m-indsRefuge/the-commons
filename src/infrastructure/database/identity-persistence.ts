@@ -94,9 +94,7 @@ export class DrizzleIdentityPersistence implements IdentityPersistence {
             .returning();
 
           if (!row) {
-            throw new Error(
-              "Database did not return the created membership.",
-            );
+            throw new Error("Database did not return the created membership.");
           }
 
           return mapMembership(row);

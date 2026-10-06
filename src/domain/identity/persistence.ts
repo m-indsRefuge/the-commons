@@ -1,9 +1,4 @@
-import type {
-  AuditEventInput,
-  CommonsRole,
-  Invite,
-  Membership,
-} from "./types";
+import type { AuditEventInput, CommonsRole, Invite, Membership } from "./types";
 
 export interface CreateInviteRecord {
   tokenHash: string;
