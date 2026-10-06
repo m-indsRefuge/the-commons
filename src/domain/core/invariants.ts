@@ -23,7 +23,7 @@ export function hasHumanContributionAuthority(input: {
 }): boolean {
   return Boolean(
     input.contributorMembershipId?.trim() &&
-      input.recordedByMembershipId?.trim(),
+    input.recordedByMembershipId?.trim(),
   );
 }
 

@@ -1,11 +1,5 @@
 export type EvidenceKind =
-  | "TEST"
-  | "DEMO"
-  | "BENCHMARK"
-  | "DEPLOYMENT"
-  | "REVIEW"
-  | "RELEASE"
-  | "OTHER";
+  "TEST" | "DEMO" | "BENCHMARK" | "DEPLOYMENT" | "REVIEW" | "RELEASE" | "OTHER";
 
 export interface ProjectEvidence {
   id: string;

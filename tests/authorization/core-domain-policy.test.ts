@@ -89,9 +89,9 @@ describe("core-domain authorization", () => {
       reason: "UNAUTHENTICATED",
     });
 
-    expect(
-      canReadCoreContent(activeMember, "PRIVATE", ["member-1"]),
-    ).toEqual({ allowed: true });
+    expect(canReadCoreContent(activeMember, "PRIVATE", ["member-1"])).toEqual({
+      allowed: true,
+    });
 
     expect(canReadCoreContent(activeMember, "PRIVATE", ["member-2"])).toEqual({
       allowed: false,

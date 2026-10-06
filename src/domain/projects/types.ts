@@ -1,7 +1,4 @@
-import type {
-  ContentVisibility,
-  RecordStatus,
-} from "@/domain/core/types";
+import type { ContentVisibility, RecordStatus } from "@/domain/core/types";
 
 export type ProjectMemberRole = "MAINTAINER" | "CONTRIBUTOR";
 
