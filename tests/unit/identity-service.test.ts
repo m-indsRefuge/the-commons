@@ -22,9 +22,7 @@ class FakeIdentityPersistence implements IdentityPersistence {
   async findMembershipByAuthUserId(
     authUserId: string,
   ): Promise<Membership | null> {
-    return this.membership?.authUserId === authUserId
-      ? this.membership
-      : null;
+    return this.membership?.authUserId === authUserId ? this.membership : null;
   }
 
   async transaction<T>(
@@ -34,9 +32,7 @@ class FakeIdentityPersistence implements IdentityPersistence {
       findInviteByTokenHash: async (tokenHash) =>
         this.invite?.tokenHash === tokenHash ? this.invite : null,
       findMembershipByAuthUserId: async (authUserId) =>
-        this.membership?.authUserId === authUserId
-          ? this.membership
-          : null,
+        this.membership?.authUserId === authUserId ? this.membership : null,
       createInvite: async (input) => {
         this.invite = {
           id: "invite-created",
@@ -140,9 +136,7 @@ describe("IdentityService", () => {
     expect(membership.status).toBe("ACTIVE");
     expect(membership.role).toBe("MEMBER");
     expect(persistence.invite?.consumedAt).not.toBeNull();
-    expect(persistence.audits.at(-1)?.eventType).toBe(
-      "membership.activated",
-    );
+    expect(persistence.audits.at(-1)?.eventType).toBe("membership.activated");
   });
 
   it("rejects an email mismatch", async () => {
