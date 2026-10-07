@@ -24,3 +24,91 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+.core-demo {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 56px 24px;
+  color: #17221e;
+}
+.core-demo header {
+  max-width: 720px;
+  margin-bottom: 36px;
+}
+.core-demo header p:first-child {
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  color: #547565;
+}
+.core-demo h1 {
+  font-size: clamp(36px, 6vw, 64px);
+  line-height: 1.02;
+  margin: 12px 0;
+}
+.core-demo header p:last-child,
+.core-demo .core-read p {
+  color: #627169;
+  line-height: 1.6;
+}
+.core-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 20px;
+}
+.core-grid form,
+.core-read {
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+  padding: 22px;
+  border: 1px solid #dce5df;
+  border-radius: 12px;
+  background: #fbfdfb;
+}
+.core-grid h2 {
+  font-size: 19px;
+  margin: 0 0 4px;
+}
+.core-grid label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 13px;
+  color: #52635a;
+}
+.core-grid input,
+.core-grid select,
+.core-grid textarea {
+  font: inherit;
+  padding: 10px 11px;
+  border: 1px solid #cbd8cf;
+  border-radius: 7px;
+  background: white;
+  color: #17221e;
+}
+.core-grid textarea {
+  min-height: 76px;
+  resize: vertical;
+}
+.core-grid button {
+  border: 0;
+  border-radius: 7px;
+  padding: 11px 14px;
+  background: #315b47;
+  color: white;
+  font-weight: 650;
+  cursor: pointer;
+}
+.core-grid button:disabled {
+  opacity: 0.6;
+}
+.core-read pre {
+  min-height: 170px;
+  max-height: 440px;
+  overflow: auto;
+  padding: 14px;
+  border-radius: 8px;
+  background: #17221e;
+  color: #e4f0e8;
+  font-size: 12px;
+  white-space: pre-wrap;
+}
