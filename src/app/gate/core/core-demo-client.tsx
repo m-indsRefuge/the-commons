@@ -22,38 +22,52 @@ export function CoreDemoClient() {
   async function submit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const form = new FormData(event.currentTarget);
-    const mode = String(form.get("mode"));
+    const type = String(form.get("type"));
+    const action = String(form.get("action"));
     const data: Result = Object.fromEntries(form.entries());
-    delete data.mode;
-    if (mode === "profile") return call("developers/me", "POST", data);
-    if (mode === "agent")
-      return call("agents", "POST", {
+    delete data.type;
+    delete data.action;
+    const recordId = String(data.recordId ?? "");
+    delete data.recordId;
+    if (type === "profile") {
+      if (action === "create") return call("developers/me", "POST", data);
+      if (action === "update") return call("developers/me", "PUT", data);
+    }
+    if (type === "agent") {
+      const path = action === "create" ? "agents" : `agents/${recordId}`;
+      if (action === "archive") return call(path, "DELETE");
+      return call(path, action === "create" ? "POST" : "PUT", {
         ...data,
         capabilities: String(data.capabilities ?? "")
           .split(",")
           .map((x) => x.trim())
           .filter(Boolean),
       });
-    if (mode === "project") return call("projects", "POST", data);
-    const projectId = String(data.projectId);
+    }
+    if (type === "project") {
+      const path = action === "create" ? "projects" : `projects/${recordId}`;
+      if (action === "archive") return call(path, "DELETE");
+      return call(path, action === "create" ? "POST" : "PUT", data);
+    }
+    const projectId = String(data.projectId ?? "");
     delete data.projectId;
-    if (mode === "harness" || mode === "artifact" || mode === "evidence")
+    if (type === "harness" || type === "artifact" || type === "evidence")
       return call(
-        `projects/${projectId}/${mode === "harness" ? "harnesses" : mode === "artifact" ? "artifacts" : "evidence"}`,
+        `projects/${projectId}/${type === "harness" ? "harnesses" : type === "artifact" ? "artifacts" : "evidence"}`,
         "POST",
         data,
       );
-    if (mode === "member")
+    if (type === "member")
       return call(`projects/${projectId}/members`, "POST", data);
-    if (mode === "link")
+    if (type === "link")
       return call(`projects/${projectId}/agents`, "POST", data);
-    if (mode === "contribution")
+    if (type === "contribution")
       return call(`projects/${projectId}/contributions`, "POST", data);
   }
   return (
     <main className="core-demo">
       <header>
-        <p>THE COMMONS · CORE WORK SYSTEM</p>
+        <p>THE COMMONS / CORE WORK SYSTEM</p>
         <h1>Work, with its provenance.</h1>
         <p>
           Development workspace for human profiles, accountable Agents,
@@ -62,10 +76,18 @@ export function CoreDemoClient() {
       </header>
       <section className="core-grid">
         <form onSubmit={submit}>
-          <h2>Create a record</h2>
+          <h2>Create or manage a record</h2>
+          <label>
+            Action
+            <select name="action">
+              <option value="create">Create</option>
+              <option value="update">Update</option>
+              <option value="archive">Archive Agent or Project</option>
+            </select>
+          </label>
           <label>
             Record type
-            <select name="mode">
+            <select name="type">
               <option value="profile">Developer profile</option>
               <option value="agent">Agent</option>
               <option value="project">Project</option>
@@ -78,18 +100,22 @@ export function CoreDemoClient() {
             </select>
           </label>
           <label>
-            Project ID (for project work)
+            Record ID for update or archive
+            <input name="recordId" />
+          </label>
+          <label>
+            Project ID for project work
             <input name="projectId" />
           </label>
           <label>
             Handle / slug
-            <input name="handle" placeholder="Used by profile" />
-            <input name="slug" placeholder="Used by Agent or Project" />
+            <input name="handle" placeholder="Developer handle" />
+            <input name="slug" placeholder="Agent or Project slug" />
           </label>
           <label>
             Name
-            <input name="displayName" placeholder="Display name" />
-            <input name="name" placeholder="Agent, Project or harness name" />
+            <input name="displayName" placeholder="Developer display name" />
+            <input name="name" placeholder="Agent, Project, or harness name" />
           </label>
           <label>
             Summary
@@ -115,7 +141,7 @@ export function CoreDemoClient() {
             <input name="agentId" placeholder="Agent ID" />
           </label>
           <label>
-            Contribution fields
+            Contribution and artifact
             <input
               name="contributorMembershipId"
               placeholder="Human contributor membership ID"
@@ -127,12 +153,12 @@ export function CoreDemoClient() {
               placeholder="Agent capabilities, comma separated"
             />
           </label>
-          <button disabled={busy}>{busy ? "Saving…" : "Save record"}</button>
+          <button disabled={busy}>{busy ? "Saving..." : "Submit"}</button>
         </form>
         <div className="core-read">
           <h2>Inspect records</h2>
           <p>
-            Read uses the same authenticated API and visibility policy as the
+            Reads use the same authenticated API and visibility policy as the
             application.
           </p>
           <ReadForm onRead={call} />
