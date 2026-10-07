@@ -31,6 +31,20 @@ export interface ProjectRepository {
   update(project: Project): Promise<Project>;
   listMembers(projectId: string): Promise<readonly ProjectMember[]>;
   listAgents(projectId: string): Promise<readonly ProjectAgent[]>;
+  listByOwnerMembershipId(membershipId: string): Promise<readonly Project[]>;
+  listByParticipantMembershipId(
+    membershipId: string,
+  ): Promise<readonly Project[]>;
+}
+
+export interface ProjectMemberRepository {
+  add(member: ProjectMember): Promise<ProjectMember>;
+  remove(projectId: string, membershipId: string): Promise<boolean>;
+}
+
+export interface ProjectAgentRepository {
+  add(agent: ProjectAgent): Promise<ProjectAgent>;
+  remove(projectId: string, agentId: string): Promise<boolean>;
 }
 
 export interface ProjectHarnessRepository {
